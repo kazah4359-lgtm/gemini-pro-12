@@ -31,7 +31,7 @@ export const site = {
 
   // Search engine verification meta tags. Fill with `content` value provided by each console.
   verification: {
-    google: 'eS_nCV15AEny9qVAgNiWqDpzeHdfZgolpO5w34PEp5Y',
+    google: 'yth6I231LT03Y_R4nzpf0FFXvGECgoz5bGAAXbEOeLI',
     bing: '', // <meta name="msvalidate.01" content="..." />
     yandex: '', // <meta name="yandex-verification" content="..." />
   },
