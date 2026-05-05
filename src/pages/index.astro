@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const base = site.base;
+
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Активация Gemini AI Pro на 12 месяцев',
+  description: site.description,
+  brand: {
+    '@type': 'Brand',
+    name: site.shortName,
+  },
+  image: [`${site.url}/media/hero.png`],
+  offers: {
+    '@type': 'Offer',
+    price: site.price.rub,
+    priceCurrency: 'RUB',
+    availability: 'https://schema.org/InStock',
+    url: site.bot.url,
+    seller: {
+      '@type': 'Organization',
+      name: site.shortName,
+      url: site.url,
+    },
+  },
+  aggregateRating: undefined,
+};
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Активация подписки Gemini AI Pro (Google One AI Premium) на 12 месяцев',
+  provider: {
+    '@type': 'Organization',
+    name: site.shortName,
+    url: site.url,
+    sameAs: [site.bot.url, site.telegram.channelUrl],
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'Россия',
+  },
+  description: site.description,
+  offers: {
+    '@type': 'Offer',
+    price: site.price.rub,
+    priceCurrency: 'RUB',
+    url: site.bot.url,
+  },
+  termsOfService: `${site.url}/faq/`,
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: site.faqs.slice(0, 6).map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.shortName,
+  alternateName: site.alternateNames,
+  url: site.url,
+  logo: `${site.url}/media/hero.png`,
+  description: site.description,
+  sameAs: [site.bot.url, site.telegram.channelUrl, site.telegram.youtube],
+};
+---
+<BaseLayout
+  title={`${site.tagline} — ${site.shortName}`}
+  description={site.description}
+  jsonLd={[orgLd, productLd, serviceLd, faqLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <section class="landing-hero">
+    <div class="landing-hero__text">
+      <div class="badge">🔥 Акция Google · 12 месяцев Gemini AI Pro</div>
+      <h1>
+        12 месяцев <span class="grad">Gemini&nbsp;AI&nbsp;Pro</span>
+        <br />за <span class="grad-2">200&nbsp;₽</span>
+      </h1>
+      <p class="lead">
+        Бот <a href={site.bot.url} target="_blank" rel="noopener"><strong>@{site.bot.username}</strong></a> активирует
+        полный <strong>Google One AI Premium</strong> на 12 месяцев на вашем Google-аккаунте.
+        Без иностранной карты, без ВПН, без танцев — оплата 200 ₽ в Telegram, готово за 5–20 минут.
+      </p>
+
+      <div class="price-row">
+        <div class="price">
+          <div class="price__now">200 ₽</div>
+          <div class="price__was">вместо <s>~$240/год</s></div>
+        </div>
+        <div class="price-meta">
+          <div>экономия <strong>≈ {site.price.discountPct}%</strong></div>
+          <div class="muted" style="font-size: 13px;">на 12 месяцев</div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Активировать в боте за 200 ₽
+        </a>
+        <a class="btn" href={`${base}/how-it-works/`}>
+          Как это работает →
+        </a>
+      </div>
+
+      <div class="trust">
+        <span class="pill">✓ Оплата в рублях</span>
+        <span class="pill">✓ Иностранная карта НЕ нужна</span>
+        <span class="pill">✓ Авто-возврат если не получилось</span>
+      </div>
+    </div>
+
+    <div class="landing-hero__media">
+      <video
+        class="hero-video"
+        src={`${base}/media/hero.mp4`}
+        poster={`${base}/media/hero.png`}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      >
+        <img src={`${base}/media/hero.png`} alt="Gemini AI Pro 12 месяцев за 200 ₽" />
+      </video>
+    </div>
+  </section>
+
+  <section class="features-grid-section">
+    <h2>Что даёт Gemini AI Pro на 12 месяцев</h2>
+    <p class="muted">
+      Полный набор Google One AI Premium — стоит ~$240/год официально.
+      По акции через бот — 200 ₽ за весь год.
+    </p>
+    <div class="features-grid">
+      {site.features.map((f) => (
+        <div class="feature">
+          <div class="feature__icon">{f.icon}</div>
+          <div class="feature__title">{f.title}</div>
+          <div class="feature__desc">{f.desc}</div>
+        </div>
+      ))}
+    </div>
+    <p style="margin-top: 18px;">
+      <a href={`${base}/features/`}>Подробное описание каждой фичи →</a>
+    </p>
+  </section>
+
+  <section class="how-section">
+    <h2>Как это работает за 3 шага</h2>
+    <div class="steps-row">
+      {site.steps.slice(0, 3).map((s) => (
+        <div class="step-card">
+          <div class="step-card__num">{s.n}</div>
+          <div class="step-card__title">{s.title}</div>
+          <div class="step-card__desc">{s.desc}</div>
+        </div>
+      ))}
+    </div>
+    <p style="margin-top: 18px;">
+      <a href={`${base}/how-it-works/`}>Полная инструкция со всеми шагами →</a>
+    </p>
+  </section>
+
+  <section class="cta-section">
+    <h2>Готовы получить Gemini AI Pro на 12 месяцев?</h2>
+    <p class="lead">
+      Открывайте бота, оплачивайте 200 ₽, получайте готовый аккаунт через 5–20 минут.
+    </p>
+    <div class="cta-row">
+      <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+        🚀 Перейти в @{site.bot.username}
+      </a>
+      <a class="btn" href={`${base}/faq/`}>Прочитать FAQ</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Часто задаваемые вопросы</h2>
+    {site.faqs.slice(0, 6).map((f) => (
+      <details class="faq">
+        <summary>{f.q}</summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+    <p style="margin-top: 14px;">
+      <a href={`${base}/faq/`}>Все вопросы и ответы →</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .landing-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    padding: 40px 0 30px;
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .landing-hero { grid-template-columns: 1fr; gap: 24px; padding-top: 20px; }
+  }
+  .landing-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    margin: 12px 0 14px;
+  }
+  .landing-hero .lead {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 540px;
+  }
+  .grad {
+    background: linear-gradient(90deg, #4d8eff, #c45fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .grad-2 {
+    background: linear-gradient(90deg, #ff7da3, #ffd54f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(77, 142, 255, 0.15), rgba(196, 95, 255, 0.15));
+    border: 1px solid rgba(196, 95, 255, 0.4);
+    color: #d8c0ff;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    margin: 18px 0 10px;
+    flex-wrap: wrap;
+  }
+  .price__now {
+    font-size: 44px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #ff7da3, #ffd54f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+  }
+  .price__was {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .price-meta {
+    color: var(--fg);
+    font-size: 16px;
+  }
+  .btn.big {
+    padding: 14px 22px;
+    font-size: 16px;
+  }
+  .trust {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .trust .pill {
+    background: rgba(77, 142, 255, 0.08);
+    border: 1px solid rgba(77, 142, 255, 0.3);
+    color: #cfdfff;
+  }
+  .hero-video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: 70vh;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: #000;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .features-grid-section { margin-top: 60px; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .feature {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .feature:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .feature__icon { font-size: 28px; margin-bottom: 6px; }
+  .feature__title { font-weight: 600; font-size: 16px; margin-bottom: 6px; }
+  .feature__desc { color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+  .how-section { margin-top: 60px; }
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 18px;
+  }
+  @media (max-width: 720px) {
+    .steps-row { grid-template-columns: 1fr; }
+  }
+  .step-card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    position: relative;
+  }
+  .step-card__num {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 36px;
+    font-weight: 700;
+    color: rgba(196, 95, 255, 0.3);
+    line-height: 1;
+  }
+  .step-card__title { font-weight: 600; font-size: 17px; margin-bottom: 6px; padding-right: 40px; }
+  .step-card__desc { color: var(--muted); font-size: 14px; }
+
+  .cta-section {
+    margin-top: 70px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 40px 24px;
+  }
+  .cta-section h2 { margin-top: 0; }
+  .cta-section .lead {
+    color: var(--muted);
+    max-width: 540px;
+    margin: 6px auto 18px;
+  }
+  .cta-section .cta-row { justify-content: center; }
+</style>

@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const base = site.base;
+
+const howToLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Как активировать Gemini AI Pro на 12 месяцев за 200 ₽',
+  description:
+    'Пошаговая инструкция активации Google One AI Premium (Gemini AI Pro) на 12 месяцев через Telegram-бот @Verif_gemini_pro_bot. Без иностранной карты.',
+  totalTime: 'PT20M',
+  estimatedCost: {
+    '@type': 'MonetaryAmount',
+    currency: 'RUB',
+    value: site.price.rub,
+  },
+  supply: [
+    { '@type': 'HowToSupply', name: 'Google аккаунт (логин + пароль + TOTP-ключ)' },
+    { '@type': 'HowToSupply', name: 'Telegram' },
+    { '@type': 'HowToSupply', name: '200 ₽ в любом удобном виде (Stars / СБП / карта РФ / крипта)' },
+  ],
+  tool: [
+    { '@type': 'HowToTool', name: '@Verif_gemini_pro_bot' },
+  ],
+  step: site.steps.map((s) => ({
+    '@type': 'HowToStep',
+    position: s.n,
+    name: s.title,
+    text: s.desc,
+    url: `${site.url}/how-it-works/#step-${s.n}`,
+  })),
+  image: [`${site.url}/media/hero.png`],
+};
+---
+<BaseLayout
+  title="Как активировать Gemini AI Pro на 12 месяцев — пошаговая инструкция"
+  description="Пошагово: как через бота @Verif_gemini_pro_bot активировать акцию Google One AI Premium на 12 месяцев за 200 ₽. Без иностранной карты, без VPN, всё автоматически."
+  path="how-it-works"
+  jsonLd={[howToLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <article class="guide">
+    <p class="muted">Инструкция · обновлено 30 апреля 2026</p>
+    <h1>Как активировать Gemini AI Pro на 12 месяцев за 200 ₽</h1>
+    <p class="lead">
+      Полностью автоматический процесс через Telegram-бота. Вам не нужна иностранная карта,
+      VPN или знание английского. Всё, что нужно — Google-аккаунт и 200 ₽ в любом удобном виде.
+      На активацию уходит от 5 до 20 минут.
+    </p>
+
+    <div class="tldr">
+      <strong>TL;DR:</strong> регистрируете Google аккаунт → запускаете
+      <a href={site.bot.url} target="_blank" rel="noopener">@{site.bot.username}</a> →
+      оплачиваете 200 ₽ → отдаёте боту логин/пароль/TOTP → через 5–20 минут получаете
+      готовый аккаунт с 12 месяцами Gemini AI Pro.
+    </div>
+
+    <h2>Что вам понадобится</h2>
+    <ul>
+      <li><strong>Google аккаунт</strong> — логин (email), пароль и TOTP-ключ (резервный 2FA-секрет). Рекомендуется создать <em>новый отдельный</em> аккаунт под подписку.</li>
+      <li><strong>Telegram</strong> — на телефоне или в десктоп-клиенте.</li>
+      <li><strong>200 ₽</strong> — Telegram Stars, СБП, карта РФ через провайдеров, CryptoBot или другие способы оплаты внутри бота.</li>
+    </ul>
+
+    <h2>Пошаговая инструкция</h2>
+
+    {site.steps.map((s) => (
+      <div class="step" id={`step-${s.n}`}>
+        <h3>Шаг {s.n}. {s.title}</h3>
+        <p>{s.desc}</p>
+      </div>
+    ))}
+
+    <h2 id="totp">Что такое TOTP-ключ и зачем он нужен</h2>
+    <p>
+      TOTP (Time-based One-Time Password) — это резервный секрет от двухфакторной авторизации Google.
+      Когда вы включаете 2FA в Google, в приложении Authenticator (или 1Password / Bitwarden / Aegis)
+      появляется строка из букв и цифр — это и есть TOTP-ключ. Он выглядит как
+      <code>JBSWY3DPEHPK3PXP</code> и используется ботом, чтобы автоматически подтверждать вход
+      без участия человека.
+    </p>
+    <p>
+      Зачем нужен боту: Google требует 2FA на всех аккаунтах, где активируется AI Premium.
+      Если бот не сможет подтвердить вход — активация не пройдёт. TOTP-ключ позволяет боту
+      сгенерировать одноразовый код самостоятельно, без обращения к вашему телефону.
+    </p>
+
+    <h3>Как получить TOTP-ключ Google аккаунта</h3>
+    <ol>
+      <li>Откройте <a href="https://myaccount.google.com/security" target="_blank" rel="noopener">myaccount.google.com/security</a></li>
+      <li>Найдите раздел <strong>«Двухэтапная аутентификация»</strong> и включите её.</li>
+      <li>Выберите способ <strong>«Приложение Authenticator»</strong>.</li>
+      <li>Google покажет QR-код. Под ним есть ссылка <em>«Не получается отсканировать?»</em> — нажмите её, чтобы увидеть текстовый секрет.</li>
+      <li>Скопируйте этот секрет (16-значный код). Это и есть ваш TOTP-ключ.</li>
+    </ol>
+
+    <h2 id="safety">Безопасно ли это?</h2>
+    <p>
+      Бот использует данные аккаунта только для одной операции — войти, активировать промо,
+      выйти. После активации:
+    </p>
+    <ul>
+      <li>Вы можете <strong>сразу сменить пароль</strong> — подписка не пропадёт.</li>
+      <li>Вы можете <strong>пересоздать TOTP</strong> (отключить и заново включить 2FA) — подписка не пропадёт.</li>
+      <li>Платёжный профиль, который создал бот, легко удалить из Google One.</li>
+    </ul>
+    <p>
+      <strong>Главная рекомендация безопасности:</strong> для активации делайте отдельный
+      Google-аккаунт под Gemini. Не используйте основной личный или рабочий — это уберёт
+      риск временного фриза от Google и оградит ваши документы / Gmail от любых проверок.
+    </p>
+
+    <h2 id="risks">Какие риски и что делать если что-то пошло не так</h2>
+    <p>
+      Главный риск — <strong>временный фриз аккаунта Google</strong>. Это происходит редко,
+      когда Google запускает дополнительные проверки безопасности из-за нетипичного поведения
+      (вход с нового IP + сразу активация подписки). Решается так:
+    </p>
+    <ul>
+      <li>Google присылает email с просьбой подтвердить вход — вы проходите recovery flow.</li>
+      <li>Если активация не прошла — <strong>бот возвращает оплату автоматически</strong>.</li>
+      <li>Если возник вопрос — пишете в TG-канал <a href={site.telegram.channelUrl} target="_blank" rel="noopener">@{site.telegram.channel}</a> или прямо в боте.</li>
+    </ul>
+
+    <h2 id="payment">Способы оплаты в боте</h2>
+    <p>Внутри @{site.bot.username} принимаются:</p>
+    <ul>
+      <li><strong>Telegram Stars</strong> — нативная валюта Telegram, удобно если у вас Premium.</li>
+      <li><strong>СБП и карта РФ</strong> — через Tribute / провайдеров платежей.</li>
+      <li><strong>CryptoBot</strong> — TON, USDT, BTC и другие криптовалюты.</li>
+      <li>Другие методы, которые бот добавляет по мере появления.</li>
+    </ul>
+    <p class="muted">
+      Конкретный список меняется — актуальные способы видны прямо в боте при оплате.
+    </p>
+
+    <h2>Что делать после активации</h2>
+    <ol>
+      <li>Войдите в полученный аккаунт на <a href="https://gemini.google.com/" target="_blank" rel="noopener">gemini.google.com</a> — увидите статус «AI Pro» / «Premium».</li>
+      <li>Откройте <a href="https://one.google.com/" target="_blank" rel="noopener">Google One</a> — там видно, что подписка активна на 12 месяцев.</li>
+      <li>Сразу <strong>смените пароль</strong> и <strong>пересоздайте TOTP</strong> для безопасности.</li>
+      <li>Пользуйтесь: gemini.google.com (чат, Deep Research), <a href="https://aistudio.google.com/" target="_blank" rel="noopener">AI Studio</a> для разработчиков, NotebookLM, Veo 3.15 для видео-генерации, Antigravity IDE, Gemini Live с камерой.</li>
+    </ol>
+
+    <div class="cta-section" style="margin-top: 50px;">
+      <h2 style="margin-top: 0;">Готовы активировать Gemini AI Pro?</h2>
+      <p class="lead" style="color: var(--muted);">Запускайте бота, оплачивайте 200 ₽, забирайте готовый аккаунт.</p>
+      <div class="cta-row" style="justify-content: center;">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Открыть @{site.bot.username}
+        </a>
+        <a class="btn" href={`${base}/faq/`}>FAQ</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 24px;
+  }
+</style>

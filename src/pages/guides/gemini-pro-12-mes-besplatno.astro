@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+import { guides } from '../../data/guides';
+
+const meta = guides.find((g) => g.slug === 'gemini-pro-12-mes-besplatno')!;
+const base = site.base;
+const url = `${site.url}/guides/${meta.slug}/`;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: meta.title,
+  description: meta.description,
+  datePublished: meta.datePublished,
+  dateModified: meta.dateModified,
+  author: { '@type': 'Organization', name: site.shortName, url: site.url },
+  publisher: { '@type': 'Organization', name: site.shortName, url: site.url },
+  mainEntityOfPage: url,
+  image: [`${site.url}/media/hero.png`],
+  keywords: meta.topics.join(', '),
+  articleSection: 'Guides',
+  inLanguage: 'ru',
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Можно ли получить Gemini AI Pro на 12 месяцев бесплатно в России в 2026?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Полностью бесплатно — нет, официальных промо для России в 2026 нет. Но через Telegram-бот @Verif_gemini_pro_bot можно активировать промо-акцию на 12 месяцев за 200 ₽ (~$2). Это не подписка от Google напрямую, а автоматизация активации существующей промо-акции через бот, который сам создаёт платёжный профиль и проходит верификацию.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Какая обычная цена Gemini AI Pro / Google One AI Premium?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Около $20 в месяц или ~$240 в год при оплате официально. В России оплата напрямую недоступна без иностранной карты, поэтому популярны методы через VPN+Apple ID других регионов или активация через сторонние сервисы.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Это легально?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Сама подписка Gemini AI Pro — официальный продукт Google. Активируется существующая промо-акция Google. Сервис автоматизирует то, что юзер мог бы сделать руками, имея иностранную карту. Серых ключей и shared-аккаунтов не используется.',
+      },
+    },
+  ],
+};
+---
+<BaseLayout
+  title={`${meta.title} — ${site.shortName}`}
+  description={meta.description}
+  path={`guides/${meta.slug}`}
+  jsonLd={[articleLd, faqLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <article class="guide">
+    <p class="muted">Гайд · {meta.datePublished} · {meta.topics.slice(0,3).join(' · ')}</p>
+    <h1>{meta.title}</h1>
+    <p class="lead">{meta.lead}</p>
+
+    <div class="tldr">
+      <strong>TL;DR:</strong> в 2026 году в России <em>полностью бесплатно</em> Gemini AI Pro
+      получить нельзя — официальные промо доступны только в США / Индии / Бразилии и требуют
+      иностранную карту. Самый дешёвый рабочий способ — активация через Telegram-бот
+      <a href={site.bot.url} target="_blank" rel="noopener"><strong>@{site.bot.username}</strong></a>:
+      200 ₽ за 12 месяцев, без иностранной карты, всё автоматически.
+    </div>
+
+    <h2>Что такое Gemini AI Pro</h2>
+    <p>
+      Gemini AI Pro (он же <strong>Google One AI Premium</strong>) — топовый платный тариф
+      Google для AI-сервисов. Включает: чат с Gemini Pro без лимитов, видео-генератор Veo 3.15,
+      image-генератор Nano Banana, AI-IDE Antigravity, NotebookLM, Deep Research, генерацию
+      музыки, Gemini Live с камерой, повышенные лимиты Gemini CLI и Code Assist, 5 ТБ Google Drive.
+    </p>
+    <p>
+      Подробный обзор всех фич — в статье <a href={`${base}/features/`}>Что входит в Gemini AI Pro</a>.
+    </p>
+
+    <h2>Способы получить Gemini AI Pro в России в 2026</h2>
+
+    <h3>1. Через Telegram-бот @Verif_gemini_pro_bot — 200 ₽ за 12 месяцев ⭐ рекомендуется</h3>
+    <p>
+      <strong>Как работает:</strong> бот сам создаёт внутри вашего Google-аккаунта платёжный
+      профиль (используя свои иностранные карты), проходит верификацию Google, активирует
+      промо-акцию AI Premium на 12 месяцев. Вы передаёте боту логин, пароль и TOTP-ключ
+      (резервный 2FA-секрет). Платите 200 ₽ внутри бота (Telegram Stars / СБП / карта РФ /
+      крипта). Через 5–20 минут возвращаете аккаунт со всеми фичами.
+    </p>
+    <p>
+      <strong>Плюсы:</strong>
+    </p>
+    <ul>
+      <li>Самый дешёвый способ — 200 ₽ против $240 официальной цены = -99%.</li>
+      <li>Не нужна иностранная карта, VPN, Apple ID других регионов.</li>
+      <li>Полностью автоматически — настраивать ничего не надо.</li>
+      <li>Если активация не прошла — деньги возвращает автоматически.</li>
+    </ul>
+    <p>
+      <strong>Минусы:</strong>
+    </p>
+    <ul>
+      <li>Нужно отдавать боту данные Google-аккаунта (логин/пароль/TOTP). Решается созданием отдельного аккаунта под подписку — это рекомендация в любом случае.</li>
+      <li>Редкий риск временного фриза аккаунта (Google запускает доп. проверки) — потому отдельный аккаунт обязателен.</li>
+    </ul>
+    <p>
+      <strong>Кому подходит:</strong> всем, кто хочет получить полный набор Gemini AI Pro без
+      возни с иностранной картой и не готов платить $240 за подписку.
+    </p>
+
+    <h3>2. Официальный Google + иностранная карта — $240/год</h3>
+    <p>
+      Стандартный путь: оформляете иностранную карту (Казахстан / Армения / Грузия / Турция),
+      привязываете к Google Pay, оформляете подписку напрямую на Google One.
+    </p>
+    <p>
+      <strong>Плюсы:</strong> прямая официальная подписка, никаких посредников.<br />
+      <strong>Минусы:</strong> $240 в год; нужно лично завести карту в другой стране или
+      покупать через сервисы выпуска (~$50-100 разовый платёж + комиссия). По сумме — в 60+
+      раз дороже бота.
+    </p>
+
+    <h3>3. Студенческое промо (US, Индия, Бразилия) — бесплатно, но недоступно из РФ</h3>
+    <p>
+      В США студенты колледжей получают Gemini AI Pro <em>бесплатно на 12 месяцев</em>
+      (нужен .edu email и проверка SheerID). Аналогичные программы в Индии и Бразилии.
+      Из России — недоступно: SheerID не верифицирует не-US номера и .edu.
+    </p>
+    <p>
+      <strong>Лазейка:</strong> технически можно купить .edu email на форумах за $5–20 +
+      получить выписку из «университета». Это серая зона и работает не всегда. Дешевле и
+      безопаснее — через бота.
+    </p>
+
+    <h3>4. Gemini API через Google AI Studio (только разработчикам)</h3>
+    <p>
+      Если вам нужен только <em>программный доступ</em> к моделям (для приложения / скрипта)
+      — у Google есть бесплатный API через <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>
+      с лимитами. Это <strong>не Gemini AI Pro</strong> — без чата, без Veo, без NotebookLM,
+      без Drive. Только модели через API.
+    </p>
+
+    <h2>Сравнительная таблица способов</h2>
+    <table>
+      <thead>
+        <tr><th>Способ</th><th>Цена / год</th><th>Иностранная карта</th><th>Скорость</th><th>Риски</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Бот @Verif_gemini_pro_bot</strong></td>
+          <td>200 ₽</td>
+          <td>не нужна</td>
+          <td>5-20 мин</td>
+          <td>редкий фриз</td>
+        </tr>
+        <tr>
+          <td>Официальная подписка</td>
+          <td>~22 000 ₽</td>
+          <td>обязательна</td>
+          <td>часы / дни</td>
+          <td>блок карты Google</td>
+        </tr>
+        <tr>
+          <td>Студенческое промо</td>
+          <td>бесплатно</td>
+          <td>может потребоваться</td>
+          <td>дни</td>
+          <td>нужен .edu / SheerID</td>
+        </tr>
+        <tr>
+          <td>Gemini API (free tier)</td>
+          <td>бесплатно</td>
+          <td>не нужна</td>
+          <td>сразу</td>
+          <td>нет чата и фич, только API</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Рекомендуемый путь для РФ в 2026</h2>
+    <ol>
+      <li>Создаёте новый Google-аккаунт (или используете чистый).</li>
+      <li>Включаете 2FA, копируете TOTP-ключ из настроек безопасности.</li>
+      <li>Открываете <a href={site.bot.url} target="_blank" rel="noopener">@{site.bot.username}</a>, оплачиваете 200 ₽, передаёте данные.</li>
+      <li>Получаете готовый аккаунт через 5–20 минут — пользуетесь 12 месяцев.</li>
+    </ol>
+    <p>
+      Полная пошаговая инструкция со всеми деталями (как сделать TOTP, как платить, что делать
+      после активации) — в гайде <a href={`${base}/how-it-works/`}>Как это работает</a>.
+    </p>
+
+    <h2>FAQ</h2>
+    <details class="faq" open><summary>Это правда работает или скам?</summary>
+      <p>Бот работает с весны 2026 года, оплачивается через защищённые платёжные провайдеры
+      Telegram (Stars / Tribute / CryptoBot). Если активация не прошла — деньги возвращаются
+      автоматически. Канал <a href={site.telegram.channelUrl} target="_blank" rel="noopener">@{site.telegram.channel}</a>
+      ведёт публичный лог обновлений и отзывов.</p>
+    </details>
+    <details class="faq"><summary>Почему так дёшево?</summary>
+      <p>200 ₽ — это плата за работу автоматизации. Бот использует доступные ему промо-акции
+      Google, не платит сам $240 за каждую подписку. Маржа сервиса небольшая, но за счёт
+      объёма активаций сервис рентабелен.</p>
+    </details>
+    <details class="faq"><summary>Что будет через 12 месяцев?</summary>
+      <p>Промо-акция закончится. Google либо предложит автопродление по обычной цене ($20/мес),
+      либо отключит подписку (зависит от того, привязан ли способ оплаты к аккаунту). Можно
+      будет повторно активировать через бот, если у Google действует акция в этот момент.</p>
+    </details>
+
+    <p style="margin-top: 30px;">
+      Связанные материалы: <a href={`${base}/guides/google-one-ai-premium-rossiya/`}>Google One AI Premium в России</a>
+      · <a href={`${base}/guides/gemini-vs-chatgpt-claude-2026/`}>Сравнение с ChatGPT и Claude</a>
+      · <a href={`${base}/features/`}>Все фичи Gemini AI Pro</a>
+      · <a href={`${base}/faq/`}>FAQ по сервису</a>
+    </p>
+
+    <div class="cta-section" style="margin-top: 40px;">
+      <h2 style="margin-top: 0;">Активировать Gemini AI Pro на 12 месяцев</h2>
+      <p class="lead" style="color: var(--muted);">200 ₽ → 12 месяцев Gemini AI Pro. Без иностранной карты.</p>
+      <div class="cta-row" style="justify-content: center;">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Открыть @{site.bot.username}
+        </a>
+        <a class="btn" href={`${base}/how-it-works/`}>Пошаговая инструкция</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 24px;
+  }
+</style>

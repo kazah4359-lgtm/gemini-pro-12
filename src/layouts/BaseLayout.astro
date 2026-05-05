@@ -1,0 +1,367 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Path relative to site root, no leading slash (e.g. "posts/123") */
+  path?: string;
+  jsonLd?: unknown[];
+  ogImage?: string;
+}
+
+const { title, description, path = '', jsonLd = [], ogImage } = Astro.props;
+const desc = description || site.shortDescription;
+const canonical = new URL(path ? `${site.base}/${path}` : `${site.base}/`, Astro.site).toString();
+const ogImg = ogImage || `${site.url}/og-default.png`;
+
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.name,
+    alternateName: site.alternateNames,
+    url: site.url,
+    inLanguage: 'ru',
+    description: site.description,
+    publisher: {
+      '@type': 'Organization',
+      name: site.shortName,
+      url: site.url,
+      sameAs: [site.bot.url, site.telegram.channelUrl, site.telegram.youtube],
+    },
+  },
+  ...jsonLd,
+];
+
+// Helper to build absolute path with base prefix
+const base = site.base;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImg} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content={site.name} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImg} />
+
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+
+    {ld.map((entry) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
+
+    <style is:global>
+      :root {
+        --bg: #0b0d12;
+        --bg-2: #11141c;
+        --fg: #e8eaf0;
+        --muted: #9aa4b2;
+        --accent: #4d8eff;
+        --accent-2: #c45fff;
+        --accent-3: #ff7da3;
+        --border: #1e2330;
+        --max: 1100px;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, system-ui, sans-serif;
+        line-height: 1.55;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      img { max-width: 100%; height: auto; display: block; }
+      .container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+      header.site {
+        padding: 18px 0;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: rgba(11, 13, 18, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10;
+      }
+      header.site .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      header.site nav a {
+        margin-left: 18px;
+        color: var(--fg);
+        font-size: 15px;
+      }
+      header.site nav a:hover { color: var(--accent); }
+      header.site .brand {
+        font-weight: 700;
+        font-size: 18px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      footer.site {
+        margin-top: 60px;
+        padding: 30px 0;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 14px;
+      }
+      footer.site a { color: var(--muted); }
+      h1, h2, h3 { line-height: 1.25; }
+      h1 { font-size: 36px; margin: 0 0 12px; }
+      h2 { font-size: 26px; margin: 32px 0 14px; }
+      h3 { font-size: 18px; margin: 18px 0 8px; }
+      .muted { color: var(--muted); }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        color: var(--muted);
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: transform .15s ease, border-color .15s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+      .card .body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
+      .card .meta { font-size: 12px; color: var(--muted); margin-top: auto; padding-top: 10px; }
+      .card .title {
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--fg);
+        margin: 0 0 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .card a.full { color: inherit; display: contents; }
+      .thumb {
+        background: #000;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        width: 100%;
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 18px 0 8px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 11px 18px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 15px;
+        border: 1px solid var(--border);
+        background: var(--bg-2);
+        color: var(--fg);
+      }
+      .btn.primary {
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: #0b0d12;
+        border-color: transparent;
+      }
+      .btn:hover { text-decoration: none; filter: brightness(1.1); }
+      .hero {
+        padding: 50px 0 20px;
+      }
+      .hero p.lead {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 720px;
+      }
+      .post-text {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px 20px;
+        font-size: 15.5px;
+      }
+      .video-embed {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        background: #000;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .video-embed iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+      details.faq {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+      }
+      details.faq summary {
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+      }
+      details.faq[open] { border-color: var(--accent); }
+
+      /* Article (guide) typography */
+      article.guide { max-width: 800px; }
+      article.guide h2 { font-size: 24px; margin: 36px 0 12px; }
+      article.guide h3 { font-size: 19px; margin: 24px 0 10px; }
+      article.guide p,
+      article.guide li {
+        font-size: 16px;
+        color: var(--fg);
+      }
+      article.guide ul, article.guide ol { padding-left: 22px; }
+      article.guide li { margin-bottom: 6px; }
+      article.guide blockquote {
+        border-left: 3px solid var(--accent);
+        margin: 16px 0;
+        padding: 4px 16px;
+        color: var(--muted);
+        background: var(--bg-2);
+        border-radius: 0 8px 8px 0;
+      }
+      article.guide code {
+        background: #1a1f2c;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 14px;
+        color: #ffd57a;
+      }
+      article.guide pre {
+        background: #11141c;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+        overflow-x: auto;
+      }
+      article.guide pre code { background: transparent; padding: 0; color: var(--fg); }
+      article.guide table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 18px 0;
+        font-size: 15px;
+      }
+      article.guide th, article.guide td {
+        padding: 10px 12px;
+        text-align: left;
+        border: 1px solid var(--border);
+      }
+      article.guide th { background: var(--bg-2); }
+      article.guide .tldr {
+        background: linear-gradient(135deg, rgba(110, 231, 255, 0.08), rgba(183, 148, 244, 0.08));
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin: 20px 0 30px;
+      }
+      article.guide .tldr h2 { margin-top: 0; font-size: 18px; color: var(--accent); }
+      article.guide .meta-row { color: var(--muted); font-size: 14px; margin: 6px 0 22px; }
+      article.guide .step {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        border-radius: 10px;
+        padding: 14px 18px;
+        margin: 14px 0;
+      }
+      article.guide .warn {
+        background: rgba(255, 200, 100, 0.06);
+        border: 1px solid rgba(255, 200, 100, 0.3);
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin: 14px 0;
+        font-size: 15px;
+      }
+      .guide-list-card {
+        background: var(--bg-2);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 14px;
+        transition: border-color .15s ease, transform .15s ease;
+      }
+      .guide-list-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+      .guide-list-card h3 { margin: 0 0 6px; }
+      .guide-list-card h3 a { color: var(--fg); }
+      .guide-list-card h3 a:hover { color: var(--accent); text-decoration: none; }
+      .guide-list-card .lead { color: var(--muted); margin: 6px 0 0; font-size: 15px; }
+    </style>
+  </head>
+  <body>
+    <header class="site">
+      <div class="container row">
+        <a href={`${base}/`} class="brand">{site.shortName}</a>
+        <nav>
+          <a href={`${base}/`}>Главная</a>
+          <a href={`${base}/how-it-works/`}>Как это работает</a>
+          <a href={`${base}/features/`}>Что входит</a>
+          <a href={`${base}/guides/`}>Гайды</a>
+          <a href={`${base}/faq/`}>FAQ</a>
+          <a href={site.bot.url} target="_blank" rel="noopener" style="color: var(--accent);">Купить за 200 ₽ →</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="site">
+      <div class="container">
+        <p>
+          {site.shortName} —
+          <a href={site.bot.url} rel="me" target="_blank">@{site.bot.username}</a> •
+          <a href={site.telegram.channelUrl} rel="me" target="_blank">@{site.telegram.channel}</a>
+        </p>
+        <p class="muted">
+          Сервис активации акции Google One AI Premium (Gemini AI Pro) на 12 месяцев.
+          Gemini, Gemini AI Pro, Google One — товарные знаки Google LLC. Сайт не аффилирован с Google.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+import { guides } from '../../data/guides';
+
+const meta = guides.find((g) => g.slug === 'gemini-vs-chatgpt-claude-2026')!;
+const base = site.base;
+const url = `${site.url}/guides/${meta.slug}/`;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: meta.title,
+  description: meta.description,
+  datePublished: meta.datePublished,
+  dateModified: meta.dateModified,
+  author: { '@type': 'Organization', name: site.shortName, url: site.url },
+  publisher: { '@type': 'Organization', name: site.shortName, url: site.url },
+  mainEntityOfPage: url,
+  image: [`${site.url}/media/hero.png`],
+  keywords: meta.topics.join(', '),
+  articleSection: 'Guides',
+  inLanguage: 'ru',
+};
+---
+<BaseLayout
+  title={`${meta.title} — ${site.shortName}`}
+  description={meta.description}
+  path={`guides/${meta.slug}`}
+  jsonLd={[articleLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <article class="guide">
+    <p class="muted">Гайд · {meta.datePublished} · {meta.topics.slice(0,3).join(' · ')}</p>
+    <h1>{meta.title}</h1>
+    <p class="lead">{meta.lead}</p>
+
+    <div class="tldr">
+      <strong>TL;DR:</strong> Все три подписки ($20/мес каждая) сильны в разном:
+      <strong>ChatGPT Plus</strong> — лучшие агенты, веб-поиск, плагины.
+      <strong>Claude Pro</strong> — лучший кодинг и длинные контексты.
+      <strong>Gemini AI Pro</strong> — лучшая мультимодальность (Veo 3.15 видео, Nano Banana картинки)
+      и облачное хранилище 5 ТБ. По цене Gemini AI Pro выигрывает с большим отрывом, если активировать
+      через <a href={site.bot.url} target="_blank" rel="noopener">@{site.bot.username}</a> за 200 ₽
+      вместо $240.
+    </div>
+
+    <h2>Краткое сравнение</h2>
+    <table>
+      <thead>
+        <tr><th>Параметр</th><th>Gemini AI Pro</th><th>ChatGPT Plus</th><th>Claude Pro</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Цена / месяц</td><td>$20</td><td>$20</td><td>$20</td></tr>
+        <tr><td>Цена / год официально</td><td>$240</td><td>$240</td><td>$240</td></tr>
+        <tr><td><strong>Цена / год через @{site.bot.username}</strong></td><td><strong>200 ₽ (~$2)</strong></td><td>—</td><td>—</td></tr>
+        <tr><td>Флагманская модель</td><td>Gemini 2.5 Pro / 3 Pro</td><td>GPT-5.5</td><td>Claude 4.5 Sonnet / Opus</td></tr>
+        <tr><td>Контекст модели</td><td>1M+ токенов</td><td>~256k</td><td>200k (Pro), 1M (Enterprise)</td></tr>
+        <tr><td>Видео-генерация</td><td>✅ Veo 3.15</td><td>✅ Sora 2</td><td>—</td></tr>
+        <tr><td>Image-генерация</td><td>✅ Nano Banana</td><td>✅ DALL-E 3</td><td>—</td></tr>
+        <tr><td>AI-IDE</td><td>✅ Antigravity</td><td>—</td><td>✅ Claude Code</td></tr>
+        <tr><td>Web-поиск / агенты</td><td>Deep Research</td><td>✅ ChatGPT Agent / Operator</td><td>Computer Use</td></tr>
+        <tr><td>Голос + камера</td><td>✅ Gemini Live</td><td>✅ Advanced Voice + Vision</td><td>—</td></tr>
+        <tr><td>Облако</td><td>5 ТБ Drive</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Когда выбирать Gemini AI Pro</h2>
+    <ul>
+      <li><strong>Нужно видео из текста</strong> — Veo 3.15 на момент апреля 2026 субъективно лучше Sora 2 в кинематографичных сценах и понимает русский запрос.</li>
+      <li><strong>Нужны картинки в фотореалистичном стиле</strong> — Nano Banana сильнее DALL-E 3 в реализме и работе с текстом на изображении.</li>
+      <li><strong>Нужно облачное хранилище</strong> — 5 ТБ Drive фактически бесплатно «прицеплены» к подписке.</li>
+      <li><strong>Длинные документы / NotebookLM</strong> — конкурентов NotebookLM по работе с источниками и подкастами нет.</li>
+      <li><strong>Хочется сэкономить</strong> — через бот за 200 ₽ это самая дешёвая премиальная AI-подписка вообще.</li>
+    </ul>
+
+    <h2>Когда выбирать ChatGPT Plus</h2>
+    <ul>
+      <li><strong>Агентные задачи</strong> — ChatGPT Agent / Operator реально выполняют действия в браузере (бронируют, покупают, заполняют формы) лучше всех.</li>
+      <li><strong>Большая экосистема плагинов / GPT</strong> — Custom GPTs, тысячи готовых ботов, integrations с тысячами сервисов.</li>
+      <li><strong>Code Interpreter / Data Analysis</strong> — анализ данных, графики, работа с Excel/CSV.</li>
+      <li><strong>Привычка</strong> — если уже пользуетесь и всё устраивает, нет смысла менять.</li>
+    </ul>
+
+    <h2>Когда выбирать Claude Pro</h2>
+    <ul>
+      <li><strong>Кодинг</strong> — Claude 4.5 Sonnet / Opus уверенно лучшие модели для кода в апреле 2026 (по бенчмаркам SWE-bench и реальной практике).</li>
+      <li><strong>Длинный контекст</strong> — 200k токенов с прекрасным retrieval работают лучше, чем 1M у Gemini в задачах на точность.</li>
+      <li><strong>Аккуратные тексты</strong> — Claude пишет естественнее по-русски, меньше «AI-стиля».</li>
+      <li><strong>Computer Use / Claude Code</strong> — для разработчиков, кто живёт в терминале и IDE.</li>
+    </ul>
+
+    <h2>Что объективно умеет каждая</h2>
+
+    <h3>Gemini AI Pro 2026 — мультимодальный комбайн</h3>
+    <p>
+      Главное преимущество — <strong>широта функционала</strong>. В одной подписке: чат, видео,
+      картинки, музыка, AI-IDE, CLI, голос+камера, облако, NotebookLM, Deep Research.
+      По чистым «языковым» способностям модели Gemini 2.5 Pro и 3 Pro чуть-чуть слабее GPT-5.5
+      и Claude 4.5 Opus, но <strong>в мультимодальных задачах — впереди</strong>: лучше понимает
+      картинки + видео + текст одновременно.
+    </p>
+
+    <h3>ChatGPT Plus 2026 — экосистема и агенты</h3>
+    <p>
+      OpenAI сделал ставку на <strong>агентные сценарии</strong>: ChatGPT Agent сам ходит в браузер,
+      Operator управляет компьютером, тысячи Custom GPT для всего на свете. Лучшая интеграция с
+      внешними сервисами через connectors. Sora 2 для видео, DALL-E 3 для картинок. По «понимаю-знаю»
+      GPT-5.5 — топ-1 модель сейчас.
+    </p>
+
+    <h3>Claude Pro 2026 — точность и кодинг</h3>
+    <p>
+      Anthropic фокусируется на <strong>надёжности и качестве</strong>. Claude 4.5 — лучшая модель
+      для кода (выигрывает SWE-bench), для длинных текстов, для задач, где важна точность и
+      отсутствие галлюцинаций. Computer Use позволяет управлять компьютером (как у ChatGPT, но
+      аккуратнее). Своих видео и картинок нет — только текст и vision (анализ изображений).
+    </p>
+
+    <h2>Что объективно <em>не</em> умеет каждая</h2>
+    <ul>
+      <li><strong>Gemini AI Pro</strong>: слабее в агентных задачах в браузере, экосистема Custom GPT и плагинов уступает OpenAI, чат может быть «суховат» по сравнению с Claude.</li>
+      <li><strong>ChatGPT Plus</strong>: нет 5 ТБ облака, нет полноценного NotebookLM, нет TG-связки за дёшево.</li>
+      <li><strong>Claude Pro</strong>: нет видео-генерации, нет image-генерации (только vision), нет голос+камера в реальном времени, нет облака.</li>
+    </ul>
+
+    <h2>Можно ли пользоваться двумя сразу</h2>
+    <p>
+      Да, и многие так делают. Типичная связка для разработчика: <strong>Claude Pro</strong>
+      (для кода) + <strong>Gemini AI Pro через бот за 200 ₽</strong> (для видео/картинок/Drive).
+      Стоит $22/мес — это $20 за Claude и $2 эквивалентно за Gemini. Получаете лучшее из двух
+      миров за цену одной подписки.
+    </p>
+
+    <h2>Итог</h2>
+    <p>
+      Если бы все три подписки стоили одинаково ($20/мес) — выбор индивидуален: ChatGPT для
+      агентов, Claude для кода, Gemini для мультимодалки. Но <strong>Gemini AI Pro через бот
+      стоит 200 ₽ в год</strong>, а ChatGPT и Claude — $240. На этой цене Gemini выигрывает
+      «по умолчанию» — берите его как основной, при необходимости докупайте Claude или ChatGPT
+      под конкретные задачи.
+    </p>
+
+    <p style="margin-top: 30px;">
+      Связанные материалы: <a href={`${base}/guides/gemini-pro-12-mes-besplatno/`}>Как получить Gemini AI Pro в России</a>
+      · <a href={`${base}/guides/google-one-ai-premium-rossiya/`}>Google One AI Premium в России</a>
+      · <a href={`${base}/features/`}>Все фичи Gemini AI Pro</a>
+    </p>
+
+    <div class="cta-section" style="margin-top: 40px;">
+      <h2 style="margin-top: 0;">Получить Gemini AI Pro дешевле всех</h2>
+      <p class="lead" style="color: var(--muted);">12 месяцев за 200 ₽ через @{site.bot.username}.</p>
+      <div class="cta-row" style="justify-content: center;">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Открыть бота
+        </a>
+        <a class="btn" href={`${base}/how-it-works/`}>Как это работает</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 24px;
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+import { guides } from '../../data/guides';
+
+const base = site.base;
+
+const collectionLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Гайды по Gemini AI Pro и Google One AI Premium',
+  description: 'Подробные гайды по активации, использованию и сравнению Gemini AI Pro в 2026.',
+  url: `${site.url}/guides/`,
+  hasPart: guides.map((g) => ({
+    '@type': 'Article',
+    headline: g.title,
+    description: g.description,
+    url: `${site.url}/guides/${g.slug}/`,
+    datePublished: g.datePublished,
+    dateModified: g.dateModified,
+  })),
+};
+---
+<BaseLayout
+  title="Гайды по Gemini AI Pro 2026 — активация, фичи, сравнение"
+  description="Подробные гайды по Gemini AI Pro: как активировать на 12 месяцев в России, обзор Google One AI Premium, сравнение с ChatGPT и Claude."
+  path="guides"
+  jsonLd={[collectionLd]}
+>
+  <h1>Гайды по Gemini AI Pro</h1>
+  <p class="lead">
+    Подробные статьи про активацию, фичи и использование Gemini AI Pro / Google One AI Premium
+    в 2026 году.
+  </p>
+
+  {guides.map((g) => (
+    <a class="guide-list-card" href={`${base}/guides/${g.slug}/`}>
+      <h2>{g.title}</h2>
+      <p>{g.lead}</p>
+      <div class="muted" style="font-size: 13px;">
+        {g.topics.slice(0, 3).map((t) => <span class="pill" style="margin-right: 6px;">{t}</span>)}
+      </div>
+    </a>
+  ))}
+</BaseLayout>

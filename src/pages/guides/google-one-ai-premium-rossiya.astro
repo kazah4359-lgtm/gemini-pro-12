@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+import { guides } from '../../data/guides';
+
+const meta = guides.find((g) => g.slug === 'google-one-ai-premium-rossiya')!;
+const base = site.base;
+const url = `${site.url}/guides/${meta.slug}/`;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: meta.title,
+  description: meta.description,
+  datePublished: meta.datePublished,
+  dateModified: meta.dateModified,
+  author: { '@type': 'Organization', name: site.shortName, url: site.url },
+  publisher: { '@type': 'Organization', name: site.shortName, url: site.url },
+  mainEntityOfPage: url,
+  image: [`${site.url}/media/hero.png`],
+  keywords: meta.topics.join(', '),
+  articleSection: 'Guides',
+  inLanguage: 'ru',
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Можно ли купить Google One AI Premium в России в 2026?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Напрямую — нет, российские карты не принимаются. Можно: 1) использовать иностранную карту (Казахстан/Армения/Турция), 2) активировать через Telegram-бот @Verif_gemini_pro_bot за 200 ₽ — бот сам создаёт платёжный профиль с иностранной картой и активирует промо на 12 месяцев.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Сколько стоит Google One AI Premium?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Около $19.99 в месяц или ~$240 в год при оплате официально через Google. В рублях по курсу 2026 — около 22 000 ₽ за год.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Чем Google One AI Premium отличается от обычного Google One?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text:
+          'Обычный Google One — только облачное хранилище (от 100 ГБ за ~$2/мес). AI Premium включает 5 ТБ Drive плюс полный набор AI-фич: Gemini Pro, Veo 3.15, Nano Banana, Antigravity IDE, NotebookLM, Deep Research, Gemini Live, генерацию музыки.',
+      },
+    },
+  ],
+};
+---
+<BaseLayout
+  title={`${meta.title} — ${site.shortName}`}
+  description={meta.description}
+  path={`guides/${meta.slug}`}
+  jsonLd={[articleLd, faqLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <article class="guide">
+    <p class="muted">Гайд · {meta.datePublished} · {meta.topics.slice(0,3).join(' · ')}</p>
+    <h1>{meta.title}</h1>
+    <p class="lead">{meta.lead}</p>
+
+    <div class="tldr">
+      <strong>TL;DR:</strong> Google One AI Premium стоит ~$20/мес или ~$240/год.
+      В России напрямую не оплатить (только иностранная карта). Самый дешёвый рабочий вариант
+      в 2026 — активация на 12 месяцев через бот <a href={site.bot.url} target="_blank" rel="noopener">@{site.bot.username}</a>
+      за 200 ₽.
+    </div>
+
+    <h2>Что такое Google One AI Premium</h2>
+    <p>
+      <strong>Google One AI Premium</strong> (также маркетируется как <em>Gemini AI Pro</em>
+      или <em>Gemini Advanced Pro</em>) — топовый тариф Google, объединяющий облачное хранилище
+      и весь премиальный AI-функционал.
+    </p>
+
+    <h3>Что входит</h3>
+    <ul>
+      <li><strong>5 ТБ облачного хранилища</strong> Google Drive (общее с Photos и Gmail).</li>
+      <li><strong>Чат с Gemini Pro</strong> — флагманская модель Google в gemini.google.com без лимитов.</li>
+      <li><strong>Veo 3.15</strong> — видео-генератор уровня Sora.</li>
+      <li><strong>Nano Banana</strong> — лучший image-генератор Google в линейке Imagen.</li>
+      <li><strong>Antigravity IDE</strong> — AI-IDE для разработчиков.</li>
+      <li><strong>Gemini CLI и Code Assist</strong> с повышенными лимитами.</li>
+      <li><strong>NotebookLM</strong> — AI для работы с документами.</li>
+      <li><strong>Deep Research</strong> — агент для глубокого исследования.</li>
+      <li><strong>Gemini Live</strong> — голос + видео-камера в реальном времени.</li>
+      <li><strong>Gem-боты</strong>, генерация музыки, AI-партнёр для задач.</li>
+    </ul>
+    <p>
+      Полный обзор фич — на странице <a href={`${base}/features/`}>Что входит в Gemini AI Pro</a>.
+    </p>
+
+    <h2>Сколько стоит Google One AI Premium</h2>
+    <table>
+      <thead>
+        <tr><th>Период</th><th>Цена в долларах</th><th>В рублях (2026)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1 месяц</td><td>$19.99</td><td>~1 850 ₽</td></tr>
+        <tr><td>12 месяцев</td><td>~$240</td><td>~22 200 ₽</td></tr>
+        <tr><td><strong>Через @{site.bot.username}</strong></td><td><strong>~$2</strong></td><td><strong>200 ₽</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Цены актуальны на апрель 2026. У Google периодически бывают акции
+    «первые 2-3 месяца за $1» для новых аккаунтов в США / Индии / Бразилии.</p>
+
+    <h2>Чем AI Premium отличается от обычного Google One</h2>
+    <table>
+      <thead>
+        <tr><th>Тариф</th><th>Хранилище</th><th>AI-фичи</th><th>Цена</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Basic</td><td>100 ГБ</td><td>нет</td><td>$2/мес</td></tr>
+        <tr><td>Standard</td><td>200 ГБ</td><td>нет</td><td>$3/мес</td></tr>
+        <tr><td>Premium</td><td>2 ТБ</td><td>нет</td><td>$10/мес</td></tr>
+        <tr><td><strong>AI Premium</strong></td><td>5 ТБ</td><td>Gemini Pro + Veo + Nano Banana + всё остальное</td><td>$20/мес</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Как купить в России в 2026</h2>
+
+    <h3>Способ 1: через Telegram-бот @Verif_gemini_pro_bot — самый дешёвый</h3>
+    <p>
+      Бот автоматически создаёт платёжный профиль внутри вашего Google-аккаунта (используя
+      собственные иностранные карты), проходит верификацию, активирует промо-акцию AI Premium
+      на 12 месяцев. От вас — логин/пароль/TOTP-ключ Google и оплата 200 ₽ в Telegram.
+    </p>
+    <p>
+      <strong>Когда подходит:</strong> почти всем. Самое выгодное соотношение цены и удобства.<br />
+      <strong>Когда не подходит:</strong> если вам нужна именно официальная подписка на ваш
+      основной аккаунт с автопродлением.
+    </p>
+    <p>
+      Подробная инструкция — в <a href={`${base}/how-it-works/`}>гайде «Как это работает»</a>.
+    </p>
+
+    <h3>Способ 2: иностранная карта</h3>
+    <p>
+      Заводите карту в банке Казахстана / Армении / Грузии / Турции (либо покупаете
+      виртуальную через сервисы типа Pyypl, Wise, Tinkoff QR-mate — список меняется).
+      Привязываете к Google Pay в иностранном Google-аккаунте, оформляете подписку на
+      <a href="https://one.google.com" target="_blank" rel="noopener">one.google.com</a>.
+    </p>
+    <p>
+      <strong>Минусы:</strong> $240/год + расходы на саму карту ($50-100 разово), валютные
+      комиссии, риски блокировки карты со стороны Google.
+    </p>
+
+    <h3>Способ 3: VPN + сторонние оплаты (NOT рекомендуется)</h3>
+    <p>
+      Раньше работали схемы через турецкий Apple ID + iTunes-карты, через Argentinian
+      Google Play + промокоды. В 2026 Google это закрыл — региональные цены унифицировали,
+      Apple Store не продаёт подписки Google One. Не тратьте время.
+    </p>
+
+    <h2>Альтернативные тарифы для бюджета</h2>
+    <p>
+      Если 200 ₽ — много, или нужен только облачный диск без AI:
+    </p>
+    <ul>
+      <li><strong>Только Drive 100 ГБ</strong>: подписка Google One Basic за ~$2/мес. Иностранная карта тоже нужна.</li>
+      <li><strong>Только AI без подписки</strong>: бесплатный <a href="https://aistudio.google.com" target="_blank" rel="noopener">Google AI Studio</a> — даёт API-доступ к Gemini моделям с лимитами. Подойдёт разработчикам, не подойдёт обычным юзерам (там нет красивого чата, NotebookLM, Veo, Drive).</li>
+    </ul>
+
+    <h2>Стоит ли вообще брать AI Premium</h2>
+    <p>
+      По официальной цене ($20/мес) — спорно: за те же деньги можно взять ChatGPT Plus или
+      Claude Pro, и кому-то они подойдут больше.
+    </p>
+    <p>
+      По цене бота (200 ₽ за 12 месяцев) — берите однозначно. Это в 60+ раз дешевле любой
+      альтернативной подписки и даёт уникальные фичи — <strong>Veo 3.15</strong> (сейчас
+      лучший видео-генератор для статичных кадров) и <strong>NotebookLM</strong> (нет
+      аналогов).
+    </p>
+
+    <h2>FAQ</h2>
+    <details class="faq" open><summary>Можно платить с российской карты Visa/MasterCard/МИР?</summary>
+      <p>Напрямую через Google — нет. Через бот @{site.bot.username} — да, бот принимает оплату
+      с российских карт и СБП.</p>
+    </details>
+    <details class="faq"><summary>Какая разница между Gemini Advanced и AI Premium?</summary>
+      <p>«Gemini Advanced» — это старое название, использовалось в 2024-2025. С конца 2025
+      Google переименовал в <strong>Gemini AI Pro</strong> и стал маркетировать вместе с
+      Google One как <strong>Google One AI Premium</strong>. Сейчас это синонимы.</p>
+    </details>
+    <details class="faq"><summary>Что если я уже плачу за обычный Google One?</summary>
+      <p>Подписки заменяют друг друга. Если активируете AI Premium — старая подписка превращается
+      в неё (хранилище расширяется, добавляются AI-фичи). Через бот тоже работает.</p>
+    </details>
+
+    <p style="margin-top: 30px;">
+      Связанные материалы: <a href={`${base}/guides/gemini-pro-12-mes-besplatno/`}>Все способы получить Gemini AI Pro в России</a>
+      · <a href={`${base}/guides/gemini-vs-chatgpt-claude-2026/`}>Сравнение Gemini AI Pro с ChatGPT и Claude</a>
+      · <a href={`${base}/features/`}>Что входит в подписку</a>
+    </p>
+
+    <div class="cta-section" style="margin-top: 40px;">
+      <h2 style="margin-top: 0;">Активировать AI Premium на 12 месяцев</h2>
+      <p class="lead" style="color: var(--muted);">200 ₽ через @{site.bot.username} вместо $240 на сайте Google.</p>
+      <div class="cta-row" style="justify-content: center;">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Открыть бота
+        </a>
+        <a class="btn" href={`${base}/how-it-works/`}>Как это работает</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 24px;
+  }
+</style>

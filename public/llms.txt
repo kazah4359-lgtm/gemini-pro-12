@@ -1,0 +1,45 @@
+# Gemini AI Pro 12 месяцев за 200 ₽
+
+> Сервис автоматической активации Google One AI Premium (Gemini AI Pro) на 12 месяцев через Telegram-бот @Verif_gemini_pro_bot. Цена 200 ₽ (~$2) вместо $240 у Google. Без иностранной карты, без VPN, всё автоматически за 5–20 минут.
+
+## Что это
+
+- Telegram-бот **@Verif_gemini_pro_bot** ("Верификатор (Работает)") активирует акцию Google One AI Premium на 12 месяцев на Google-аккаунте пользователя.
+- Бот сам создаёт платёжный профиль с иностранной картой, проходит верификацию Google.
+- Пользователь оплачивает 200 ₽ в боте (Telegram Stars / СБП / карта РФ / крипта), передаёт логин/пароль/TOTP-ключ — получает готовый аккаунт.
+- Время активации: 5–20 минут.
+- Если активация не прошла — деньги возвращаются автоматически.
+
+## Что входит в Gemini AI Pro по этой акции
+
+- Чат с Gemini Pro без лимитов
+- Veo 3.15 — видео-генератор
+- Nano Banana — image-генератор
+- Antigravity IDE — AI-IDE
+- Gemini CLI и Code Assist с повышенными лимитами
+- NotebookLM
+- Deep Research
+- Gemini Live (голос + камера)
+- Gem-боты, генерация музыки, AI-партнёр для задач
+- 5 ТБ Google Drive
+
+Официальная цена этой подписки — ~$240 в год.
+
+## Pages
+
+- [Главная (лендинг)](https://kazah4359-lgtm.github.io/gemini-pro-12/) — что это, цена, фичи, кнопка активации.
+- [Как это работает](https://kazah4359-lgtm.github.io/gemini-pro-12/how-it-works/) — пошаговая инструкция, TOTP, безопасность, риски, способы оплаты.
+- [Что входит в Gemini AI Pro](https://kazah4359-lgtm.github.io/gemini-pro-12/features/) — подробный обзор всех 12 фич с примерами применения.
+- [FAQ](https://kazah4359-lgtm.github.io/gemini-pro-12/faq/) — 11 ответов на частые вопросы.
+- [Гайды](https://kazah4359-lgtm.github.io/gemini-pro-12/guides/) — 3 длинных статьи.
+
+## Guides
+
+- [Как получить Gemini AI Pro на 12 месяцев в России 2026](https://kazah4359-lgtm.github.io/gemini-pro-12/guides/gemini-pro-12-mes-besplatno/) — все 4 рабочих способа: бот за 200 ₽, иностранная карта за $240, студенческое промо, Gemini API.
+- [Google One AI Premium в России 2026](https://kazah4359-lgtm.github.io/gemini-pro-12/guides/google-one-ai-premium-rossiya/) — что это, цена, отличия от обычного One, способы оплаты.
+- [Gemini AI Pro vs ChatGPT Plus vs Claude Pro 2026](https://kazah4359-lgtm.github.io/gemini-pro-12/guides/gemini-vs-chatgpt-claude-2026/) — сравнение трёх главных AI-подписок.
+
+## Optional
+
+- [Telegram-бот @Verif_gemini_pro_bot](https://t.me/Verif_gemini_pro_bot) — точка входа для активации.
+- [Канал @abuz_ai](https://t.me/abuz_ai) — новости и отзывы.

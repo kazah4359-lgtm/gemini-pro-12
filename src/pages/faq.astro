@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const base = site.base;
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: site.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<BaseLayout
+  title="FAQ — Gemini AI Pro 12 месяцев за 200 ₽ через @Verif_gemini_pro_bot"
+  description="Ответы на все вопросы об активации Gemini AI Pro на 12 месяцев через бот: как работает, безопасно ли, что входит, способы оплаты, риски."
+  path="faq"
+  jsonLd={[faqLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <article class="guide">
+    <p class="muted">FAQ · обновлено 30 апреля 2026</p>
+    <h1>Часто задаваемые вопросы</h1>
+    <p class="lead">
+      Всё, что нужно знать про активацию Gemini AI Pro на 12 месяцев через бот
+      <a href={site.bot.url} target="_blank" rel="noopener"><strong>@{site.bot.username}</strong></a>.
+      Если вопрос не нашёлся — пишите в TG-канал
+      <a href={site.telegram.channelUrl} target="_blank" rel="noopener">@{site.telegram.channel}</a>
+      или прямо в боте.
+    </p>
+
+    {site.faqs.map((f, i) => (
+      <details class="faq" open={i < 3}>
+        <summary>{f.q}</summary>
+        <p>{f.a}</p>
+      </details>
+    ))}
+
+    <div class="cta-section" style="margin-top: 50px;">
+      <h2 style="margin-top: 0;">Готовы попробовать?</h2>
+      <p class="lead" style="color: var(--muted);">200 ₽ → 12 месяцев Gemini AI Pro</p>
+      <div class="cta-row" style="justify-content: center;">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Открыть @{site.bot.username}
+        </a>
+        <a class="btn" href={`${base}/how-it-works/`}>Как это работает</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 24px;
+  }
+</style>

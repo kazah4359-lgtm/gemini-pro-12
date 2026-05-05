@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const base = site.base;
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Что входит в Gemini AI Pro: полный обзор фич Google One AI Premium 2026',
+  description:
+    'Подробный обзор всех фич Gemini AI Pro (Google One AI Premium): Veo 3.15, Nano Banana, Antigravity IDE, NotebookLM, Deep Research, Gemini Live, 5 ТБ Drive и другие.',
+  datePublished: '2026-04-30',
+  dateModified: '2026-04-30',
+  author: { '@type': 'Organization', name: site.shortName, url: site.url },
+  publisher: { '@type': 'Organization', name: site.shortName, url: site.url },
+  mainEntityOfPage: `${site.url}/features/`,
+  image: [`${site.url}/media/hero.png`],
+};
+---
+<BaseLayout
+  title="Что входит в Gemini AI Pro 2026 — полный обзор фич Google One AI Premium"
+  description="Полный список фич Gemini AI Pro: Veo 3.15, Nano Banana, NotebookLM, Antigravity IDE, Deep Research, 5 ТБ Drive, Gemini Live и другие. Подробный обзор."
+  path="features"
+  jsonLd={[articleLd]}
+  ogImage={`${site.url}/media/hero.png`}
+>
+  <article class="guide">
+    <p class="muted">Обзор · обновлено 30 апреля 2026</p>
+    <h1>Что входит в Gemini AI Pro в 2026 году</h1>
+    <p class="lead">
+      Gemini AI Pro (он же <strong>Google One AI Premium</strong>) — топовый платный тариф
+      Google для AI и облачных сервисов. Стоит около <strong>$20/месяц или $240/год</strong>
+      официально. Через <a href={site.bot.url} target="_blank" rel="noopener">@{site.bot.username}</a>
+      активация на 12 месяцев — <strong>200 ₽</strong>.
+    </p>
+
+    <div class="tldr">
+      <strong>TL;DR:</strong> 12 фич — от мощного чата с Gemini Pro и видео-генератора Veo 3.15
+      до 5 ТБ Drive и AI-IDE Antigravity. Подписка одна, фич много.
+    </div>
+
+    <h2>📋 Что включено — список</h2>
+    <table>
+      <thead>
+        <tr><th>Фича</th><th>Что это</th><th>Кому полезно</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Чат с Gemini Pro</strong></td>
+          <td>Самая мощная модель Google в gemini.google.com без лимитов чата</td>
+          <td>Всем — основа подписки</td>
+        </tr>
+        <tr>
+          <td><strong>Veo 3.15</strong></td>
+          <td>Видео-генератор уровня Sora — кинематографичные ролики из текста</td>
+          <td>Видеомейкеры, маркетологи, креаторы</td>
+        </tr>
+        <tr>
+          <td><strong>Nano Banana</strong></td>
+          <td>Самый сильный image-генератор Google в линейке Imagen</td>
+          <td>Дизайнеры, иллюстраторы, контент-мейкеры</td>
+        </tr>
+        <tr>
+          <td><strong>Antigravity IDE</strong></td>
+          <td>AI-IDE Google для кодинга — конкурент Cursor / Claude Code</td>
+          <td>Разработчики</td>
+        </tr>
+        <tr>
+          <td><strong>Gemini CLI / Code Assist</strong></td>
+          <td>Повышенные лимиты для CLI и IDE-плагина</td>
+          <td>Разработчики, terminal-юзеры</td>
+        </tr>
+        <tr>
+          <td><strong>NotebookLM</strong></td>
+          <td>AI для работы с документами и подкастами</td>
+          <td>Студенты, исследователи, аналитики</td>
+        </tr>
+        <tr>
+          <td><strong>Deep Research</strong></td>
+          <td>Парсит сотни сайтов и пишет отчёт</td>
+          <td>Аналитики, журналисты, продакт-менеджеры</td>
+        </tr>
+        <tr>
+          <td><strong>Gemini Live</strong></td>
+          <td>Голосовой режим с видео-камерой — модель видит окружение</td>
+          <td>Все — повседневный AI-ассистент</td>
+        </tr>
+        <tr>
+          <td><strong>Gem-боты</strong></td>
+          <td>Кастомизация AI-персонажей (как Custom GPT в ChatGPT)</td>
+          <td>Энтузиасты, разработчики ассистентов</td>
+        </tr>
+        <tr>
+          <td><strong>Генерация музыки</strong></td>
+          <td>Music-модели Google — треки из текста</td>
+          <td>Музыканты, контент-мейкеры</td>
+        </tr>
+        <tr>
+          <td><strong>AI-партнёр для задач</strong></td>
+          <td>Напоминания, отложенные задачи, выполнение по расписанию</td>
+          <td>Все — продуктивность</td>
+        </tr>
+        <tr>
+          <td><strong>5 ТБ Google Drive</strong></td>
+          <td>5 терабайт облачного хранилища</td>
+          <td>Всем — фото, видео, бэкапы</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="gemini-pro">💬 Чат с Gemini Pro</h2>
+    <p>
+      Доступ к самой мощной модели Google в чате <a href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a>.
+      В отличие от бесплатного Gemini, тут <strong>длиннее контекст</strong> (1М+ токенов),
+      <strong>выше лимиты</strong>, доступны все Pro-модели и preview-фичи. Понимает текст,
+      картинки, документы, аудио и видео в одном диалоге.
+    </p>
+    <p>
+      <strong>Частые применения:</strong> анализ длинных PDF, разбор кода, написание текстов,
+      исследования, мультимодальные задачи (картинка + текст одновременно).
+    </p>
+
+    <h2 id="veo">🎬 Veo 3.15 — видео из текста</h2>
+    <p>
+      <strong>Veo 3.15</strong> — флагманский видео-генератор Google. Создаёт короткие ролики
+      (до нескольких секунд) с кинематографичной картинкой по текстовому описанию. На уровне
+      OpenAI Sora и Runway Gen-4. В подписке — расширенный (хотя и лимитированный по объёму)
+      доступ через <strong>AI Movies</strong>.
+    </p>
+    <p>
+      <strong>Применение:</strong> рекламные ролики, scene-планнинг для съёмок, превизы,
+      контент для соцсетей.
+    </p>
+
+    <h2 id="nano-banana">🍌 Nano Banana — генерация изображений</h2>
+    <p>
+      Nano Banana — кодовое название самого продвинутого image-генератора Google в линейке Imagen.
+      Доступен только подписчикам. Качество — на уровне топовых моделей DALL-E 3 / Midjourney v7,
+      <strong>с особой силой в фотореализме и понимании текста на изображениях</strong>.
+    </p>
+
+    <h2 id="antigravity">🛸 Antigravity IDE</h2>
+    <p>
+      AI-IDE от Google для разработки. Это полноценный конкурент <strong>Cursor</strong> и
+      <strong>Claude Code</strong> — со встроенным агентом, который понимает весь репозиторий,
+      редактирует файлы по запросу, запускает терминал и выполняет тесты. Работает на Gemini Pro.
+      В обычном тарифе сильно ограничен по запросам — тут лимиты сильно расширены.
+    </p>
+
+    <h2 id="cli">⚡ Gemini CLI и Code Assist</h2>
+    <p>
+      <strong>Gemini CLI</strong> — терминальный AI-ассистент от Google (как Aider или Claude Code в терминале).
+      В платной подписке — <em>в 5–10 раз больше</em> запросов в день. <strong>Code Assist</strong> —
+      плагин для VS Code / JetBrains с автодополнением и чатом по проекту.
+    </p>
+
+    <h2 id="notebooklm">📓 NotebookLM</h2>
+    <p>
+      AI-инструмент для работы с документами. Загружаете PDF / статьи / видео — NotebookLM
+      делает <strong>конспекты, FAQ, mind-maps, аудио-подкасты</strong> на основе ваших
+      источников. В платной версии — больше источников, длиннее подкасты, доступ к Pro-моделям.
+    </p>
+
+    <h2 id="deep-research">📊 Deep Research</h2>
+    <p>
+      Агент, который сам ищет информацию по сотням источников и собирает структурированный
+      отчёт. По запросу <em>«Сравни рынок CRM-систем для малого бизнеса в России в 2026»</em>
+      он соберёт реальные данные с десятков сайтов и пришлёт длинный аналитический документ.
+      Сильнее обычных Search-режимов чатов.
+    </p>
+
+    <h2 id="live">👁️ Gemini Live</h2>
+    <p>
+      Голосовой режим Gemini с поддержкой видео-камеры. <strong>Модель «видит» через камеру
+      телефона</strong> и общается голосом — можно показать ей что-то и сразу спросить.
+      Применения: помощь в обучении, разбор окружающей среды, языковая практика, готовка,
+      медицинские вопросы (по фото симптомов), DIY-проекты.
+    </p>
+
+    <h2 id="gems">🤖 Gem-боты</h2>
+    <p>
+      Кастомные «персонажи» Gemini — аналог Custom GPT в ChatGPT. Создаёте бота с
+      собственными инструкциями и наборами знаний, шарите команде или используете для
+      повторяющихся задач.
+    </p>
+
+    <h2 id="music">🎵 Генерация музыки</h2>
+    <p>
+      Доступ к музыкальным моделям Google. Текстовое описание стиля и настроения → готовый трек.
+      Полезно для бэкграунда видео, концепт-демо, экспериментов.
+    </p>
+
+    <h2 id="tasks">⏰ AI-партнёр для задач</h2>
+    <p>
+      Напоминания, отложенные задачи, выполнение по расписанию. Можно сказать «напомни мне
+      завтра в 9 написать отчёт» или «каждый понедельник проверяй inbox и собирай резюме».
+    </p>
+
+    <h2 id="drive">💾 5 ТБ Google Drive</h2>
+    <p>
+      5 терабайт облачного хранилища, общих с Google Drive, Google Photos и Gmail. Если
+      берёте подписку <strong>только ради Drive</strong> — отдельная подписка Google One на 5 ТБ
+      стоит ~$10/мес. Через бот вы получаете её и AI-фичи в одном пакете за 200 ₽.
+    </p>
+
+    <h2>💡 Стоит ли это 200 ₽?</h2>
+    <p>
+      Сравнение по стоимости отдельных частей подписки на 12 месяцев:
+    </p>
+    <table>
+      <thead>
+        <tr><th>Фича</th><th>Аналог отдельно</th><th>В Gemini AI Pro</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Чат уровня Gemini Pro</td><td>ChatGPT Plus $240/год</td><td>включено</td></tr>
+        <tr><td>Видео-генератор</td><td>Runway $144/год</td><td>включено (Veo 3.15)</td></tr>
+        <tr><td>Image-генератор</td><td>Midjourney $120/год</td><td>включено (Nano Banana)</td></tr>
+        <tr><td>AI-IDE</td><td>Cursor Pro $240/год</td><td>включено (Antigravity)</td></tr>
+        <tr><td>5 ТБ облака</td><td>Google One $120/год</td><td>включено</td></tr>
+        <tr><td>Deep Research</td><td>Perplexity Pro $200/год</td><td>включено</td></tr>
+      </tbody>
+    </table>
+    <p>
+      По сумме отдельных аналогов — <strong>больше $1000 в год</strong>. Через бот это всё
+      идёт пакетом за <strong>200 ₽ = ~$2 на год</strong>.
+    </p>
+
+    <div class="cta-section" style="margin-top: 50px;">
+      <h2 style="margin-top: 0;">Активировать Gemini AI Pro</h2>
+      <p class="lead" style="color: var(--muted);">12 месяцев всех фич за 200 ₽ через @{site.bot.username}.</p>
+      <div class="cta-row" style="justify-content: center;">
+        <a class="btn primary big" href={site.bot.url} target="_blank" rel="noopener">
+          🚀 Открыть бота
+        </a>
+        <a class="btn" href={`${base}/how-it-works/`}>Как это работает</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(77, 142, 255, 0.08), rgba(196, 95, 255, 0.08));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 24px;
+  }
+</style>
