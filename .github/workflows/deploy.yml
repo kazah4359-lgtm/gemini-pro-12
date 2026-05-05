@@ -40,6 +40,30 @@ jobs:
         with:
           path: dist
 
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build to get sitemap
+        run: npm run build
+
+      - name: Ping IndexNow (Bing + Yandex)
+        run: node scripts/indexnow-ping.mjs
+        continue-on-error: true
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

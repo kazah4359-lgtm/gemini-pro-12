@@ -29,6 +29,13 @@ export const site = {
     youtube: 'https://www.youtube.com/channel/UC15FjPfHK0F6TpUHJpCfINA',
   },
 
+  // Search engine verification meta tags. Fill with `content` value provided by each console.
+  verification: {
+    google: '', // <meta name="google-site-verification" content="..." />
+    bing: '', // <meta name="msvalidate.01" content="..." />
+    yandex: '', // <meta name="yandex-verification" content="..." />
+  },
+
   // Pricing
   price: {
     rub: 200,
