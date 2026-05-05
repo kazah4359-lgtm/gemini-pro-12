@@ -61,6 +61,16 @@ const base = site.base;
 
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
 
+    {site.verification.google && (
+      <meta name="google-site-verification" content={site.verification.google} />
+    )}
+    {site.verification.bing && (
+      <meta name="msvalidate.01" content={site.verification.bing} />
+    )}
+    {site.verification.yandex && (
+      <meta name="yandex-verification" content={site.verification.yandex} />
+    )}
+
     {ld.map((entry) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}
